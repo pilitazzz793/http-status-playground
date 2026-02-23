@@ -13,7 +13,7 @@ app.get("/", async (req, res) =>{
         const result = await pool.query("SELECT NOW()");
         res.status(200).json({
             message: "servidor y db funcionando correctamente",
-            time: result.row[0],
+            time: result.rows[0],
         });
     } catch(error) {
         res.status(500).json({
