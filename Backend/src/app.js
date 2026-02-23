@@ -23,6 +23,17 @@ app.get("/", async (req, res) =>{
     }
 });
 
+//creamos nueva ruta para traer los estados
+app.get("/status", async (req, res) =>{
+    try{
+        const result = await pool.query("SELECT * FROM status_codes");
+        res.json(result.rows);
+    }catch(error){
+        console.error(error);
+        res.status(500).json({ error: "error al obtener los status"})
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>{
