@@ -8,5 +8,6 @@ router.get('/', statusController.getAllStatus);
 router.get('/', get.statusController.getStatusById);
 router.post('/', statusController.createStatus);
 router.delete('/', statusController.deleteStatus);
+router.put('/:id', statusController.updateStatus);
 
 module.exports = router;
