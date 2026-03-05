@@ -58,3 +58,32 @@ exports.deleteStatus = async(req, res) => {
         res.status(500).json({ error: 'error al eliminar'});
     }
 };
+
+exports.updateStatus = async(req, res) =>{
+    try{
+        const {id} = req.params;
+        const {code, message, dscription}= req.body;
+
+        //validar datos
+        if(!code || !message){
+            return res.status(400).json({
+                error: 'datos incompletos'
+            });
+        }
+        //verificar si existe
+        const existing = await pool.query('SELECT * FROM status WHERE id = $1',[id]);
+
+        //actualizar
+        const result = await pool.query(
+            'UPDATE status SET code = $1, message >= $2, description = $3 WHERE id = $4 RETURNING *',
+            [code, message, description, id]
+        );
+
+        res.status(200).json(result.rows[0]);
+
+    }catch(error){
+        res.status(500).json({
+            error: 'error al actualizar'
+        });
+    }
+};
