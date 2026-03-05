@@ -3,7 +3,7 @@
 const express = require("express");
 require("dotenv").config();
 
-const statusRoutes = require('/routes/status.routes');
+const statusRoutes = require('./routes/status.routes');
 const pool = require("./db");
 
 const app = express();
